@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Defibit • Support Center</title>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --text: #0f1320;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --ring:#e9e9f2;
+      --radius:20px;
+      --brand1:#7b3fe4; /* purple */
+      --brand2:#ff2d7a; /* pink */
+      --shadow: 0 8px 30px rgba(17, 17, 26, .08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 70% 95%, rgba(123,63,228,.12), transparent 60%),
+        radial-gradient(1000px 500px at 0% 80%, rgba(255,45,122,.12), transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:28px 20px 80px}
+    .brand{
+      display:flex;align-items:center;gap:10px;font-weight:800;font-size:26px;letter-spacing:.2px}
+    .brand span{
+      background:linear-gradient(90deg,var(--brand1),var(--brand2));
+      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .nav{
+      display:flex;align-items:center;gap:22px;font-weight:600}
+    header{
+      position:sticky;top:0;z-index:5;background:rgba(255,255,255,.72);
+      backdrop-filter:saturate(180%) blur(14px); border-bottom:1px solid #f1f2f6}
+    header .row{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+    .pill{
+      padding:10px 16px;border-radius:999px;border:1px solid var(--ring);box-shadow:0 2px 10px rgba(0,0,0,.04)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:14px 22px;border-radius:999px;font-weight:700;border:none;cursor:pointer}
+    .btn.grad{background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#fff;box-shadow:0 10px 24px rgba(123,63,228,.25)}
+    .btn.ghost{background:#fff;border:1px solid var(--ring)}
+    .hero h1{font-size:48px;line-height:1.05;margin:18px 0 10px}
+    .muted{color:var(--muted)}
+    .search{
+      display:flex;gap:10px;background:#fff;border:1px solid var(--ring);border-radius:999px;padding:12px 16px;
+      box-shadow:var(--shadow);max-width:760px}
+    .search input{
+      border:none;outline:0;font-size:16px;flex:1;background:transparent;padding:4px}
+    .grid{display:grid;gap:18px}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-4{grid-template-columns:repeat(4,1fr)}
+    @media (max-width:980px){.grid.cols-4{grid-template-columns:repeat(2,1fr)} .grid.cols-3{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){
+      .hero h1{font-size:38px}
+      .grid.cols-4,.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}
+      header .nav{display:none}
+    }
+    .card{
+      background:var(--card);border:1px solid var(--ring);border-radius:16px;padding:18px 18px;box-shadow:var(--shadow);
+      transition:.15s transform ease,.15s box-shadow ease}
+    .card:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(17, 17, 26, .12)}
+    .row{display:flex;align-items:center;gap:14px}
+    .row.between{justify-content:space-between}
+    .icon{
+      width:40px;height:40px;border-radius:12px;display:inline-grid;place-items:center;
+      background:linear-gradient(135deg,rgba(123,63,228,.12),rgba(255,45,122,.12))}
+    .icon svg{width:22px;height:22px}
+    .heading{font-weight:800;font-size:28px;margin:6px 0 4px}
+    .sub{font-size:14px;color:var(--muted)}
+    .section-title{font-size:24px;font-weight:800;margin:28px 0 12px}
+    .list{display:flex;flex-direction:column;gap:12px}
+    .list a{padding:14px 16px;border:1px solid var(--ring);border-radius:14px;background:#fff}
+    footer{margin-top:68px;padding:28px 0 60px;border-top:1px solid #eee;color:#6b7280;font-size:14px}
+    .badge{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--ring);color:var(--muted)}
+    .ctaRow{display:flex;gap:14px;flex-wrap:wrap}
+    /* article */
+    article h1{font-size:38px;margin:8px 0 6px}
+    article h2{font-size:22px;margin:26px 0 10px}
+    article p{line-height:1.65;color:#252b3b}
+    article .callout{background:#f9f7ff;border:1px solid #ece7ff;border-radius:14px;padding:14px 16px}
+    /* toast */
+    .toast{position:fixed;right:18px;bottom:18px;background:#10131b;color:#fff;padding:12px 14px;border-radius:12px;opacity:0;transform:translateY(10px);transition:.25s}
+    .toast.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container row between">
+      <a href="#/" class="brand" aria-label="Defibit Home">
+        <span>Defibit</span>
+      </a>
+      <nav class="nav">
+        <a class="pill" href="#/">Home</a>
+        <a class="pill" href="#/products">Products</a>
+        <a class="pill" href="#/about">About</a>
+        <a class="pill" href="#/support">Support</a>
+      </nav>
+      <a class="btn grad" href="#/support">Access Wallet</a>
+    </div>
+  </header>
+
+  <main id="app" class="container"></main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Copied!</div>
+
+  <script>
+    /**********************
+     * DATA (edit freely) *
+     **********************/
+    const CATEGORIES = [
+      {
+        id: 'getting-started',
+        title: 'Getting Started',
+        description: 'Create a wallet, back up recovery phrase, and fund your account.',
+        icon: iconDoc(),
+        articles: [
+          {slug:'create-wallet', title:'How to create a wallet', time:'3 min', body: `
+            <p>Creating your Defibit wallet takes less than a minute.</p>
+            <ol>
+              <li>Open the app or click <strong>Create Free Wallet</strong>.</li>
+              <li>Write down your <strong>12-word recovery phrase</strong>. Store it offline.</li>
+              <li>Set a strong passcode and enable biometric unlock.</li>
+              <li>Back up the wallet to iCloud/Google Drive (encrypted).</li>
+            </ol>
+            <div class="callout"><strong>Never</strong> share your recovery phrase with anyone. Support will never ask.</div>
+            <h2>Receive your first crypto</h2>
+            <p>Go to <em>Wallet → Receive</em>, choose an asset, and copy your address. Always verify the network (e.g., BTC vs. BEP20).</p>
+          `},
+          {slug:'restore-access', title:'Restore access with recovery phrase', time:'4 min', body: `
+            <p>To restore a wallet, install Defibit and choose <em>I already have a wallet</em>. Enter your 12-word phrase in the correct order, set a new passcode, and you’re in.</p>
+          `},
+        ]
+      },
+      {
+        id: 'account-security',
+        title: 'Account & Security',
+        description: '2FA, passcodes, device locks, and account safety.',
+        icon: iconShield(),
+        articles: [
+          {slug:'enable-2fa', title:'Enable Two-Factor Authentication (2FA)', time:'2 min', body: `
+            <p>Go to <em>Settings → Security → 2FA</em> and connect an authenticator app. Save backup codes in a password manager.</p>
+          `},
+          {slug:'scam-protection', title:'Recognize & avoid scams', time:'5 min', body: `
+            <p>Defibit support will never DM you first, ask for funds, or request your seed phrase.</p>
+            <ul>
+              <li>Always check the domain: <code>defibit.com</code></li>
+              <li>Beware of airdrop/phishing links.</li>
+              <li>Turn on transaction alerts.</li>
+            </ul>
+          `}
+        ]
+      },
+      {
+        id: 'wallet-assets',
+        title: 'Wallet & Assets',
+        description: 'Manage coins, networks, portfolios, and price alerts.',
+        icon: iconWallet(),
+        articles: [
+          {slug:'add-asset', title:'Add or hide an asset', time:'2 min', body: `
+            <p>From Wallet, tap <em>+ Add</em> to enable assets. Use search to find supported tickers.</p>
+          `},
+          {slug:'supported-currencies', title:'Supported currencies & networks', time:'3 min', body: `
+            <p>Defibit supports 150+ assets across major networks. Check each asset’s <em>Receive</em> screen for the exact network.</p>
+          `}
+        ]
+      },
+      {
+        id: 'transactions-fees',
+        title: 'Transactions & Fees',
+        description: 'Send, receive, on-chain confirmations, and fee optimization.',
+        icon: iconAlert(),
+        articles: [
+          {slug:'send-crypto', title:'Send crypto safely', time:'3 min', body: `
+            <p>Paste the recipient address, choose the correct network, and select a fee level (Economy / Normal / Fast).</p>
+          `},
+          {slug:'lower-fees', title:'Tips for lowering fees', time:'2 min', body: `
+            <ul>
+              <li>Use off-peak times when networks are less congested.</li>
+              <li>Prefer native networks (e.g., BTC mainnet) for higher reliability.</li>
+            </ul>
+          `}
+        ]
+      },
+      {
+        id: 'troubleshooting',
+        title: 'Troubleshooting',
+        description: 'Fix common issues and get back on track.',
+        icon: iconSwap(),
+        articles: [
+          {slug:'tx-pending', title:'Why is my transaction pending?', time:'2 min', body: `
+            <p>Low fees or network congestion can delay confirmations. You can speed up with Replace-By-Fee (if available) or wait for the network.</p>
+          `},
+          {slug:'app-crash', title:'App crashes or won’t open', time:'1 min', body: `
+            <p>Update to the latest version, clear cache, then restart your device. If the issue persists, contact support with device logs.</p>
+          `}
+        ]
+      },
+      {
+        id: 'contact',
+        title: 'Contact Support',
+        description: 'Chat, email, or open a ticket with our team.',
+        icon: iconMail(),
+        articles: [
+          {slug:'contact-options', title:'Open a support ticket', time:'2 min', body: `
+            <p>Use live chat for urgent issues or submit a ticket at <a href="#">support@defibit.com</a>. Include your device, app version, and transaction ID (if applicable).</p>
+          `}
+        ]
+      }
+    ];
+
+    /*********************
+     * SIMPLE HASH ROUTER *
+     *********************/
+    const app = document.getElementById('app');
+
+    function route(){
+      const path = location.hash.replace(/^#/, '') || '/support';
+      const parts = path.split('/').filter(Boolean); // e.g. ['category','getting-started']
+      if (parts.length === 0) return renderSupportHome();
+
+      // Home-like placeholders
+      if (parts[0] === '') return renderSupportHome();
+      if (parts[0] === 'support') return renderSupportHome();
+      if (parts[0] === 'products') return renderPlaceholder('Products');
+      if (parts[0] === 'about') return renderPlaceholder('About');
+      if (parts[0] === 'category' && parts[1]) return renderCategory(parts[1]);
+      if (parts[0] === 'article' && parts[1] && parts[2]) return renderArticle(parts[1], parts[2]);
+
+      // Fallback
+      renderNotFound();
+    }
+
+    /****************
+     * RENDER VIEWS *
+     ****************/
+    function renderSupportHome(){
+      app.innerHTML = `
+        <section class="hero">
+          <div class="badge">Support</div>
+          <h1>How can we help you?</h1>
+          <p class="muted" style="max-width:780px">Search the knowledge base or browse categories. Manage your wallet, keep your account secure, and get help from our team.</p>
+          <div class="search" style="margin:18px 0 22px">
+            ${iconSearch()}
+            <input id="search" placeholder="Search the knowledge base" aria-label="Search the knowledge base">
+            <button class="btn ghost" onclick="runSearch()">Search</button>
+          </div>
+          <div class="ctaRow" style="margin-bottom:18px">
+            <a class="btn grad" href="#/category/contact">Live chat</a>
+            <a class="btn ghost" href="#/category/contact">Email us</a>
+          </div>
+        </section>
+
+        <div class="section-title">Browse topics</div>
+        <div class="grid cols-3" id="catGrid">
+          ${CATEGORIES.slice(0,5).map(cat=>CategoryCard(cat)).join('')}
+          ${CategoryCard(CATEGORIES.find(c=>c.id==='contact'))}
+        </div>
+
+        <div class="section-title">Popular articles</div>
+        <div class="grid cols-2">
+          ${popularArticles().map(a=>ArticleLink(a)).join('')}
+        </div>
+      `;
+    }
+
+    function renderCategory(catId){
+      const cat = CATEGORIES.find(c=>c.id===catId);
+      if (!cat) return renderNotFound();
+
+      app.innerHTML = `
+        <div class="row" style="gap:10px;margin-bottom:10px">
+          <a class="pill" href="#/support">← Back to Support</a>
+        </div>
+        <div class="row" style="gap:14px;margin-bottom:10px">
+          <div class="icon">${cat.icon}</div>
+          <div>
+            <div class="heading">${cat.title}</div>
+            <div class="sub">${cat.description}</div>
+          </div>
+        </div>
+        <div class="grid cols-2">
+          ${cat.articles.map(a => `
+            <a class="card" href="#/article/${cat.id}/${a.slug}">
+              <div class="row between">
+                <div style="font-weight:700">${a.title}</div>
+                <span class="sub">${a.time}</span>
+              </div>
+              <div class="sub" style="margin-top:8px">Open guide →</div>
+            </a>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function renderArticle(catId, slug){
+      const cat = CATEGORIES.find(c=>c.id===catId);
+      const art = cat?.articles.find(a=>a.slug===slug);
+      if (!cat || !art) return renderNotFound();
+
+      app.innerHTML = `
+        <div class="row" style="gap:10px;margin-bottom:14px">
+          <a class="pill" href="#/category/${cat.id}">← ${cat.title}</a>
+          <button class="pill" onclick="copyLink()">Copy link</button>
+        </div>
+        <article class="card" style="padding:24px">
+          <div class="row" style="gap:12px">
+            <div class="icon">${cat.icon}</div>
+            <div>
+              <div class="sub">${cat.title}</div>
+              <h1>${art.title}</h1>
+              <div class="sub">Last updated just now • ${art.time} read</div>
+            </div>
+          </div>
+          <div style="height:12px"></div>
+          <div class="content">${art.body}</div>
+
+          <h2>Still need help?</h2>
+          <div class="ctaRow">
+            <a class="btn grad" href="#/category/contact">Start live chat</a>
+            <a class="btn ghost" href="#/category/contact">Email support</a>
+          </div>
+        </article>
+
+        <div class="section-title">Related articles</div>
+        <div class="grid cols-2">
+          ${cat.articles.filter(a=>a.slug!==slug).slice(0,4).map(a=>ArticleLink({cat:cat.id, ...a})).join('')}
+        </div>
+      `;
+    }
+
+    function renderPlaceholder(title){
+      app.innerHTML = `
+        <section class="hero">
+          <h1>${title}</h1>
+          <p class="muted">This is a simple placeholder. Use the Support section for the full design.</p>
+          <a class="btn grad" href="#/support">Go to Support</a>
+        </section>
+      `;
+    }
+
+    function renderNotFound(){
+      app.innerHTML = `
+        <section class="hero">
+          <h1>Page not found</h1>
+          <p class="muted">The page you’re looking for doesn’t exist or has moved.</p>
+          <a class="btn grad" href="#/support">Back to Support</a>
+        </section>
+      `;
+    }
+
+    /**************
+     * TEMPLATES  *
+     **************/
+    function CategoryCard(cat){
+      return `
+        <a class="card" href="#/category/${cat.id}">
+          <div class="row">
+            <div class="icon">${cat.icon}</div>
+            <div>
+              <div style="font-weight:800">${cat.title}</div>
+              <div class="sub">${cat.description}</div>
+            </div>
+          </div>
+        </a>
+      `;
+    }
+
+    function ArticleLink(a){
+      const url = a.cat ? `#/article/${a.cat}/${a.slug}` : `#/article/${findCatByArticle(a.slug)?.id}/${a.slug}`;
+      return `<a class="card" href="${url}">
+        <div style="font-weight:700">${a.title}</div>
+        <div class="sub" style="margin-top:6px">Read article →</div>
+      </a>`;
+    }
+
+    function popularArticles(){
+      const picks = [];
+      for (const c of CATEGORIES){
+        for (const a of c.articles) picks.push({cat:c.id, ...a});
+      }
+      return picks.slice(0,6);
+    }
+    function findCatByArticle(slug){
+      return CATEGORIES.find(c => c.articles.some(a=>a.slug===slug));
+    }
+
+    /*****************
+     * INTERACTIONS  *
+     *****************/
+    function runSearch(){
+      const q = (document.getElementById('search')?.value || '').toLowerCase().trim();
+      if (!q){ location.hash = '#/support'; return; }
+      const results = [];
+      for (const c of CATEGORIES){
+        for (const a of c.articles){
+          if (a.title.toLowerCase().includes(q) || (c.title.toLowerCase().includes(q))){
+            results.push({cat:c.id, ...a});
+          }
+        }
+      }
+      app.innerHTML = `
+        <div class="row" style="gap:10px;margin-bottom:10px"><a class="pill" href="#/support">← Back</a></div>
+        <div class="heading">Search results</div>
+        <div class="sub" style="margin:6px 0 16px">${results.length} article(s) for “${escapeHtml(q)}”</div>
+        <div class="grid cols-2">
+          ${results.map(a=>ArticleLink(a)).join('') || `<div class="card">No results. Try a different term.</div>`}
+        </div>
+      `;
+    }
+
+    function copyLink(){
+      navigator.clipboard.writeText(location.href).then(()=>showToast('Link copied'));
+    }
+    function showToast(msg){
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'), 1600);
+    }
+    function escapeHtml(str){return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+
+    /*********
+     * ICONS *
+     *********/
+    function iconSearch(){ return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="#9aa0b5" stroke-width="2" stroke-linecap="round"/></svg>`}
+    function iconDoc(){ return `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="14" height="18" rx="3" stroke="url(#g1)" stroke-width="2"/><path d="M8 8h6M8 12h8M8 16h5" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="g1" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#7b3fe4"/><stop offset="1" stop-color="#ff2d7a"/></linearGradient></defs></svg>`}
+    function iconShield(){ return `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z" stroke="url(#g2)" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="url(#g2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g2" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#7b3fe4"/><stop offset="1" stop-color="#ff2d7a"/></linearGradient></defs></svg>`}
+    function iconWallet(){ return `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3" stroke="url(#g3)" stroke-width="2"/><path d="M16 12h3" stroke="url(#g3)" stroke-width="2" stroke-linecap="round"/><circle cx="14" cy="12" r="1.6" fill="url(#g3)"/><defs><linearGradient id="g3" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#7b3fe4"/><stop offset="1" stop-color="#ff2d7a"/></linearGradient></defs></svg>`}
+    function iconAlert(){ return `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3L12 3z" stroke="url(#g4)" st
